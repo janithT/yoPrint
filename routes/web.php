@@ -18,5 +18,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/home', [FileUploadController::class, 'index'])->name('home');
-Route::post('/upload', [FileUploadController::class, 'store'])->name('file.upload');
+
+Route::prefix('student')->group(function () {
+    Route::get('/report/{student_id}/{reort_id}', [App\Http\Controllers\StudentReportController::class, 'getReport'])->name('student_reports.index');
+});
