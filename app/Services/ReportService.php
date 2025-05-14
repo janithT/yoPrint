@@ -148,6 +148,17 @@ class ReportService
         } else {
             echo "\n{$name} got the same score in the oldest and most recent assessments.\n";
         }
+
+        // or return the data as an array
+            // return [
+            //     'student_id' => $student_id,
+            //     'report_id' => $report_id,
+            //     'name' => $name,
+            //     'completed_at' => $completedAt,
+            //     'total_correct' => $totalCorrect,
+            //     'total_questions' => $totalQuestions,
+            //     'strand_breakdown' => $strandBreakdown
+            // ];
     }
 
     // generate feedback report

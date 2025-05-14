@@ -21,12 +21,6 @@ class StudentReportController extends Controller
         return view('diagnostic.student.index');
     }
 
-    public function show($id)
-    {
-        return view('diagnostic.student.show', compact('id'));
-    }
-
-
     public function getReport($student_id, $report_id)
     {
 
@@ -34,11 +28,11 @@ class StudentReportController extends Controller
 
         try {
 
-            if ($report_id == 1) {
+            if ($report_id && $report_id == 1) {
                 $data = $this->reportService->generateDiagnosticReport($student_id);
-            } else if ($report_id == 2) {
+            } else if ($report_id && $report_id == 2) {
                 $data = $this->reportService->generateProgressReport($student_id);
-            } else if ($report_id == 3) {
+            } else if ($report_id && $report_id == 3) {
                 $data = $this->reportService->generateFeedbackReport($student_id);
             } else {
                 // default to diagnostic report
@@ -49,13 +43,20 @@ class StudentReportController extends Controller
             return response()->json([
                 'student_id' => $student_id,
                 'report_id' => $report_id,
-                'report_data' => 'Sample report data here'
+                'status' => 'success',
+                'message' => 'Sample report data here'
             ]);
 
 
-        } catch (\Throwable $th) {dd($th);
+        } catch (\Throwable $th) {
             // ... the rest
             Log::error('Error generating report: ' . $th->getMessage());
+            return response()->json([
+                'student_id' => $student_id,
+                'report_id' => $report_id,
+                'status' => 'error',
+                'message' => 'Error generating report',
+            ]);
         }
 
     }
